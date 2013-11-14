@@ -1,4 +1,3 @@
-
 a11y-checker
 ============
 
@@ -19,7 +18,7 @@ During the development process, **Property-based testing** was used to verify th
 
 *a11y-checker*, its *Property-based tests* and its *automatic random HTML generator* are licensed under **GPLv3**.
 
-Requiriments
+Requirements
 ------------
 
   * Erlang/OTP and *xmerl_scan* parser.
