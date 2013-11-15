@@ -31,8 +31,245 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <h3>
-<a name="a11-checker" class="anchor" href="#a11-checker"><span class="octicon octicon-link"></span></a>a11-checker</h3>
+        <p>The <em>a11y-checker</em> library tests web pages for conformance to the <a href="http://www.w3.org/TR/WCAG20/"><em>Web Content Accessibility Guidelines 2.0</em></a>: <strong>WGAC 2.0</strong>.</p>
+
+<p>It provides test of the level A of conformance for the HTML technology, allowing to:</p>
+
+<ul>
+<li>Validate the level A of conformance for HTML.</li>
+<li>Individually test the success criteria related to the level A of conformance over HTML.</li>
+<li>Individually test a subset of the HTML techniques considered as sufficient by the WCAG 2.0 to achieve the level A of conformance.</li>
+</ul><p>The library was designed in a way that eases the addition of new levels of conformance and technologies to test.</p>
+
+<p>During the development process, <strong>Property-based testing</strong> was used to verify the HTML techniques, making use of the <a href="http://proper.softlab.ntua.gr/"><strong>PropEr</strong></a> tool. An automated, random HTML generator was implemented as well during the testing phase.</p>
+
+<p><em>a11y-checker</em>, its <em>Property-based tests</em> and its <em>automatic random HTML generator</em> are licensed under <strong>GPLv3</strong>.</p>
+
+<h2>
+<a name="requirements" class="anchor" href="#requirements"><span class="octicon octicon-link"></span></a>Requirements</h2>
+
+<ul>
+<li>Erlang/OTP and <em>xmerl_scan</em> parser.</li>
+<li>
+<em>PropEr</em> for the Property-based tests (<a href="https://github.com/manopapad/proper/blob/master/README.md">PropEr installation instructions</a>)</li>
+</ul><h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p><em>a11y-checker</em> comes with an EMakefile you can use to compile the modules that compose the library by typing inside an Erlang console:</p>
+
+<pre><code>cd("path to the project").
+make:all().
+</code></pre>
+
+<p>To load the modules that compose <em>a11y-checker</em>, type inside the Erlang console:</p>
+
+<pre><code>cd(ebin).
+l(wcag_2).
+l(html_wcag2).
+l(html_techniques).
+</code></pre>
+
+<p>If you are interested in trying the <em>Property-based tests</em>, also load:</p>
+
+<pre><code>l(html_prop).
+l(html_gen).
+</code></pre>
+
+<p>and the PropEr modules:</p>
+
+<pre><code>l(proper).
+l(proper_gen).
+</code></pre>
+
+<p>Once you have done this, you will have access to the APIs defined by the different modules. You can find examples of use in the next section.</p>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p><em>a11y-checher</em> is composed by several Erlang modules, each of one providing different APIs.</p>
+
+<p>Those modules are:</p>
+
+<h3>
+<a name="wcag_2" class="anchor" href="#wcag_2"><span class="octicon octicon-link"></span></a>wcag_2</h3>
+
+<p>Test levels of conformance and individual success criteria for different technologies.</p>
+
+<h4>
+<a name="functions" class="anchor" href="#functions"><span class="octicon octicon-link"></span></a>Functions</h4>
+
+<pre><code>conformance_level(LevelOfConformance, TechnologyList, Content, EntryType) -&gt; boolean()
+
+success_criterion(LevelOfConformance, TechnologyList, Content, EntryType) -&gt; boolean()
+</code></pre>
+
+<p>functions of the last type look like  <em>success_criterion_n_n_n_description</em>
+being the <em>n</em> the nomenclature given by the WCGA 2.0.</p>
+
+<h4>
+<a name="parameters" class="anchor" href="#parameters"><span class="octicon octicon-link"></span></a>Parameters</h4>
+
+<ul>
+<li>
+<em>LevelOfConformace</em>, currently supported level is Level A.</li>
+<li>
+<em>TechnologyList</em>, currently sopported technology is HTML.</li>
+<li>
+<em>Content</em>, an string containing the HTML or a path to a file.</li>
+<li>
+<em>EntryType = {string, file}</em> depending on the nature of <em>Content</em>.</li>
+</ul><h4>
+<a name="output" class="anchor" href="#output"><span class="octicon octicon-link"></span></a>Output</h4>
+
+<ul>
+<li>
+<em>True</em>, if the content matches the conformance level or success criterion</li>
+<li>
+<em>False</em>, otherwise. Information of the failing HTML techniques and the failing HTML element are shown.</li>
+</ul><h4>
+<a name="example" class="anchor" href="#example"><span class="octicon octicon-link"></span></a>Example</h4>
+
+<pre><code>wcag_2:conformance_level(a, [html], "&lt;html&gt;&lt;head&gt;Ejemplo&lt;/head&gt;&lt;body&gt;&lt;img&gt;imagen&lt;/img&gt;&lt;/body&gt;&lt;/html&gt;", string).
+</code></pre>
+
+<p>Output: <em>(success messages are omitted for brevity)</em></p>
+
+<pre><code>Failing element: [{html,1},{body,2},{img,1}]
+HTML H37: failed
+Failing element: [{html,1},{body,2},{img,1}]
+HTML H67: failed
+Success Criterion 1.1.1: failed
+.......
+HTML H25: failed
+Success Criterion 2.4.2: failed
+.......
+HTML H57: failed
+Success Criterion 3.1.1: failed
+.......
+{validation_error,{error_missing_element_declaration_in_DTD,html}
+HTML H88: failed
+Success Criterion 4.1.1: failed
+Success Criterion 4.1.2: failed
+......
+Level A of Conformance: denied
+false
+</code></pre>
+
+<p>Explanation:</p>
+
+<ul>
+<li>
+<em>Success criterion 1.1.1.</em> fails because the image doesn't contain a textual alternative <a href="http://www.w3.org/TR/WCAG-TECHS/H37.html">(H37)</a>, or a <em>NULL</em> <em>alt</em> attribute <a href="http://www.w3.org/TR/WCAG-TECHS/H67.html">(H63)</a>.</li>
+<li>
+<em>Success criterion 2.4.2.</em> fails because the document doesn't contain a title  <a href="http://www.w3.org/TR/WCAG-TECHS/H25.html">(H25)</a>.</li>
+<li>
+<em>Success criterion 3.1.1. fails because the language attribute is not set in the *html</em> element <a href="http://www.w3.org/TR/WCAG-TECHS/H57.html">(H57)</a>.</li>
+<li>
+<em>Success criteria 4.1.1. and 4.1.2</em> fail because HTML is not used according to its specs, the DTD declaration is missing. <a href="http://www.w3.org/TR/WCAG-TECHS/H88.html">(H88)</a>.</li>
+</ul><h3>
+<a name="html_wcag2" class="anchor" href="#html_wcag2"><span class="octicon octicon-link"></span></a>html_wcag2</h3>
+
+<p>Tests if a certain success criterion is met by the HTML of the page, for a certain level of conformance.</p>
+
+<p>Its functionality is equivalent to the one provided by the <em>wcag_2:success_criterion</em> functions, because the technology currently supported is HTML.</p>
+
+<h3>
+<a name="html_tech" class="anchor" href="#html_tech"><span class="octicon octicon-link"></span></a>html_tech</h3>
+
+<p>Tests if a certain HTML Technique is correctly applied by the web content.</p>
+
+<h4>
+<a name="functions-1" class="anchor" href="#functions-1"><span class="octicon octicon-link"></span></a>Functions</h4>
+
+<pre><code>success_criterion_n(XmlElement) -&gt; boolean()
+</code></pre>
+
+<p>named following the nomenclature used by the WCAG 2.0 (Hnum), plus a brief description of the technique.</p>
+
+<h4>
+<a name="parameters-1" class="anchor" href="#parameters-1"><span class="octicon octicon-link"></span></a>Parameters</h4>
+
+<ul>
+<li>
+<p><em>XmlElement</em>, structure representing the HTML document, obtained using the function <em>scan()</em> defined in the module is used:</p>
+
+<p>scan (Html, type)</p>
+</li>
+<li><p><em>Html</em>, an string containing the HTML or a path to a file.</p></li>
+<li>
+<em>type = {string, file}</em> depending on the nature of <em>Html</em>.</li>
+</ul><h4>
+<a name="output-1" class="anchor" href="#output-1"><span class="octicon octicon-link"></span></a>Output</h4>
+
+<ul>
+<li>
+<em>True</em>, if the HTML applied correctly the technique</li>
+<li>
+<em>False</em> otherwise. Information of the failing HTML element is shown.</li>
+</ul><h4>
+<a name="example-1" class="anchor" href="#example-1"><span class="octicon octicon-link"></span></a>Example</h4>
+
+<p>Testing
+<a href="http://www.w3.org/TR/WCAG-TECHS/H37.html">H37 HTML technique</a>:</p>
+
+<pre><code>html_tech:h37_only_well_formed_images(html_tech:scan("&lt;html&gt;&lt;head&gt;Example&lt;/head&gt;&lt;body&gt;&lt;img&gt;Image&lt;/img&gt;&lt;/body&gt;&lt;/html&gt;", string)).
+</code></pre>
+
+<p>Output:</p>
+
+<pre><code>false
+</code></pre>
+
+<p>The image doesn't contain a textual alternative.</p>
+
+<h3>
+<a name="property-based-tests" class="anchor" href="#property-based-tests"><span class="octicon octicon-link"></span></a><em>Property-based tests</em>
+</h3>
+
+<p>There are two modules related to the <em>Property-based tests</em>.
+To try them you have to get PropEr installed.</p>
+
+<h4>
+<a name="html_gen" class="anchor" href="#html_gen"><span class="octicon octicon-link"></span></a>html_gen</h4>
+
+<p>Automatic and random HTML generator.</p>
+
+<h5>
+<a name="example-2" class="anchor" href="#example-2"><span class="octicon octicon-link"></span></a>Example</h5>
+
+<p>Generate random HTML:</p>
+
+<pre><code>proper_gen:pick(html_gen:html()).
+</code></pre>
+
+<p>More information about <a href="http://proper.softlab.ntua.gr/doc/proper_gen.html#pick-1"><em>proper_gen:pick</em></a> and <a href="http://proper.softlab.ntua.gr/doc/proper_gen.html">proper_gen</a>.</p>
+
+<h4>
+<a name="html_prop" class="anchor" href="#html_prop"><span class="octicon octicon-link"></span></a>html_prop</h4>
+
+<p>Defines the properties that the HTML Techniques should follow.</p>
+
+<h5>
+<a name="example-3" class="anchor" href="#example-3"><span class="octicon octicon-link"></span></a>Example</h5>
+
+<p>Test the property related to <a href="http://www.w3.org/TR/WCAG-TECHS/H37.html">(H37)</a> over randomly generated HTML:</p>
+
+<pre><code>proper:quickcheck(html_prop:prop_well_formed_images()).
+</code></pre>
+
+<p>Proper looks for counterexamples (HTML code) where the property fails and provides an shrinked counterexample.</p>
+
+<p>More information about PropEr <a href="http://proper.softlab.ntua.gr/doc/">here</a>.</p>
+
+<h1>
+<a name="known-issues" class="anchor" href="#known-issues"><span class="octicon octicon-link"></span></a>Known issues</h1>
+
+<ul>
+<li><p><em>a11y-checker</em> uses an XML parser: <em>xmerl_scan</em> to parse the HTML content. Hence, if your page is not well-formed <em>a11y-checher</em> will fail to parse the document.</p></li>
+<li><p><em>a11y-checker</em> currently supports HTML, if your page contains javascript code, parsing errors can happen when parsing the document using <em>xmerl_scan</em>.</p></li>
+<li><p>Sometimes we have detected problems when parsing content of certain HTML attributes if it contains special characters.</p></li>
+<li><p>The DTD's address specified in the HTML DOCTYPE declaration must be a local file, <em>xmerl_scan</em> doesn't have support to retrieve it from the web.</p></li>
+</ul><p>You can use: <code>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "../src/html/data/DTD/xhtml1-transitional.dtd"&gt;</code></p>
       </section>
     </div>
 
