@@ -1,47 +1,42 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-
   <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="a11y-checker : Web Accessibility Evaluation Library in Erlang" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>a11y-checker by antiapuentes</title>
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-
-    <title>a11y-checker</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
   </head>
-
   <body>
+    <div class="wrapper">
+      <header>
+        <h1>a11y-checker</h1>
+        <p>Web Accessibility Evaluation Library in Erlang</p>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/antiapuentes/a11y-checker">View on GitHub</a>
+        <p class="view"><a href="https://github.com/antiapuentes/a11y-checker">View the Project on GitHub <small>antiapuentes/a11y-checker</small></a></p>
 
-          <h1 id="project_title">a11y-checker</h1>
-          <h2 id="project_tagline">Web Accessibility Evaluation Library in Erlang</h2>
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/antiapuentes/a11y-checker/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/antiapuentes/a11y-checker/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
-
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <p>The <em>a11y-checker</em> library tests web pages for conformance to the <a href="http://www.w3.org/TR/WCAG20/"><em>Web Content Accessibility Guidelines 2.0</em></a>: <strong>WGAC 2.0</strong>.</p>
-
-<p>It provides test of the level A of conformance for the HTML technology, allowing to:</p>
+        <ul>
+          <li><a href="https://github.com/antiapuentes/a11y-checker/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/antiapuentes/a11y-checker/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/antiapuentes/a11y-checker">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <p><em>a11y-checker</em> is a Web Accessibility Evaluation library written in Erlang, that tests web pages for conformance to the <a href="http://www.w3.org/TR/WCAG20/"><em>Web Content Accessibility Guidelines 2.0</em></a> defined by the W3C, also know as <em>WGAC 2.0</em>, that define a serie of rules that web pages should follow to be considered accessible. The library provides test of conformance for the level A of the WCAG 2.0 in HTML, allowing to:</p>
 
 <ul>
 <li>Validate the level A of conformance for HTML.</li>
 <li>Individually test the success criteria related to the level A of conformance over HTML.</li>
 <li>Individually test a subset of the HTML techniques considered as sufficient by the WCAG 2.0 to achieve the level A of conformance.</li>
-</ul><p>The library was designed in a way that eases the addition of new levels of conformance and technologies to test.</p>
+</ul><p>It was designed in a way that eases the addition of new levels of conformance and technologies to test.</p>
 
-<p>During the development process, <strong>Property-based testing</strong> was used to verify the HTML techniques, making use of the <a href="http://proper.softlab.ntua.gr/"><strong>PropEr</strong></a> tool. An automated, random HTML generator was implemented as well during the testing phase.</p>
+<p>During the development process, <strong>Property-based testing</strong> was used to verify the HTML techniques, making use of the <a href="http://proper.softlab.ntua.gr/"><strong>PropEr</strong></a> tool. An automated, random HTML generator was implemented during the testing phase.</p>
 
 <p><em>a11y-checker</em>, its <em>Property-based tests</em> and its <em>automatic random HTML generator</em> are licensed under <strong>GPLv3</strong>.</p>
 
@@ -268,20 +263,15 @@ To try them you have to get PropEr installed.</p>
 <li><p><em>a11y-checker</em> uses an XML parser: <em>xmerl_scan</em> to parse the HTML content. Hence, if your page is not well-formed <em>a11y-checher</em> will fail to parse the document.</p></li>
 <li><p><em>a11y-checker</em> currently supports HTML, if your page contains javascript code, parsing errors can happen when parsing the document using <em>xmerl_scan</em>.</p></li>
 <li><p>Sometimes we have detected problems when parsing content of certain HTML attributes if it contains special characters.</p></li>
-<li><p>The DTD's address specified in the HTML DOCTYPE declaration must be a local file, <em>xmerl_scan</em> doesn't have support to retrieve it from the web.</p></li>
-</ul><p>You can use: <code>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "../src/html/data/DTD/xhtml1-transitional.dtd"&gt;</code></p>
+<li><p>The DTD's address specified in the HTML DOCTYPE declaration must be a local file, <em>xmerl_scan</em> doesn't have support to retrieve it from the web. You can use: "../src/html/data/DTD/xhtml1-transitional.dtd"`</p></li>
+</ul>
       </section>
-    </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">a11y-checker maintained by <a href="https://github.com/antiapuentes">antiapuentes</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/antiapuentes">antiapuentes</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
       </footer>
     </div>
-
+    <script src="javascripts/scale.fix.js"></script>
     
-
   </body>
 </html>
