@@ -80,14 +80,18 @@
 scan(Html, EntryType) ->
     {XmlElement, _} = case EntryType of
                           string -> xmerl_scan:string(Html,[{comments, false}]);
-                          file   -> xmerl_scan:file(Html, [{comments, false}])
+                          file   -> xmerl_scan:file(Html, [{comments, false}]);
+						  url    -> {_, { _, _, HtmlData}} = httpc:request(Html),
+									xmerl_scan:string(HtmlData,[{comments, false}])
                       end,
     XmlElement.
 
 validate(Html, EntryType) ->
     {XmlElement, _} =  case EntryType of
                            string -> xmerl_scan:string(Html, [{validation, dtd}, {comments, false}]);
-                           file   -> xmerl_scan:file(Html, [{validation, dtd},{comments, false}])
+                           file   -> xmerl_scan:file(Html, [{validation, dtd},{comments, false}]);
+						   url    -> {_, { _, _, HtmlData}} = httpc:request(Html),
+									 xmerl_scan:string(HtmlData,[{validation, dtd}, {comments, false}])
                        end,
     XmlElement.
 

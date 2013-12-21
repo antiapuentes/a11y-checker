@@ -38,7 +38,7 @@ To load the modules that compose *a11y-checker*, type inside the Erlang console:
     cd(ebin).
     l(wcag_2).
     l(html_wcag2).
-    l(html_techniques).
+    l(html_tech).
 
 If you are interested in trying the *Property-based tests*, also load:
 
@@ -115,6 +115,18 @@ Explanation:
 * *Success criterion 2.4.2.* fails because the document doesn't contain a title  [(H25)](http://www.w3.org/TR/WCAG-TECHS/H25.html).
 * *Success criterion 3.1.1. fails because the language attribute is not set in the *html* element [(H57)](http://www.w3.org/TR/WCAG-TECHS/H57.html).
 * *Success criteria 4.1.1. and 4.1.2* fail because HTML is not used according to its specs, the DTD declaration is missing. [(H88)](http://www.w3.org/TR/WCAG-TECHS/H88.html).
+
+
+You can also provide a local file as argument:
+
+    wcag_2:conformance_level(a, [html], "file.html", file).
+
+Finally, you can provide a URL as argument, but in that case make sure to start inets (and ssl) if needed:
+
+    inets:start().
+    ssl:start().
+    wcag_2:conformance_level(a, [html], "http://www.w3c.org", url).
+
 
 ### html_wcag2
 
