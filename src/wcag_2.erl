@@ -56,12 +56,7 @@
 % Output functions
 % ----------------
 eval_technology(Technology, Fun, Args, SuccessCriterionName) ->
-    Result = case Args of
-                 [Arg]                    -> Fun(Arg);
-                 [Arg1, Arg2]             -> Fun(Arg1, Arg2);
-                 [Arg1, Arg2, Arg3]       -> Fun(Arg1, Arg2, Arg3);
-                 [Arg1, Arg2, Arg3, Arg4] -> Fun(Arg1, Arg2, Arg3, Arg4)
-             end,
+    Result = erlang:apply(Fun, Args),
     case Result of
         true  -> io:format("Success Criterion ~s: (~s) ok~n",     [SuccessCriterionName, Technology]);
         false -> io:format("Success Criterion ~s: (~s) failed~n", [SuccessCriterionName, Technology])
@@ -82,12 +77,7 @@ eval(TechnologyList, SuccessCriterionName) ->
 
 eval_success_criterion(Fun, Args) ->
     io:format("~n----------------------~n~n"),
-    case Args of
-        [Arg]                    -> Fun(Arg);
-        [Arg1, Arg2]             -> Fun(Arg1, Arg2);
-        [Arg1, Arg2, Arg3]       -> Fun(Arg1, Arg2, Arg3);
-        [Arg1, Arg2, Arg3, Arg4] -> Fun(Arg1, Arg2, Arg3, Arg4)
-    end.
+	erlang:apply(Fun, Args).
 
 
 eval_conformance_level(SuccessCriterionList, LevelOfConformance) ->
