@@ -28,24 +28,15 @@ Requirements
 Installation
 ------------
 
-*a11y-checker* comes with an EMakefile you can use to compile the modules that compose the library by typing inside an Erlang console:
+*a11y-checker* comes with an EMakefile you can use to compile and load the modules that compose the library by typing
 
-    cd("path to the project").
-    make:all().
+    erl -pa ebin
 
-To load the modules that compose *a11y-checker*, type inside the Erlang console:
+to open an Erlang shell and then
 
-    cd(ebin).
-    l(wcag_2).
-    l(html_wcag2).
-    l(html_tech).
+    make:all([load]).
 
-If you are interested in trying the *Property-based tests*, also load:
-
-    l(html_prop).
-    l(html_gen).
-
-and the PropEr modules:
+If you are interested in trying the *property-based tests*, remember to load or include in your Erlang classpath the PropEr modules:
 
     l(proper).
     l(proper_gen).
