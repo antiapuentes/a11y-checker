@@ -52,6 +52,11 @@
          conformance_level/4
         ]).
 
+-define(HTML_TECH, html).
+-define(HTML_LABEL, "HTML").
+-define(ClevelA, a).
+-define(ClevelA_LABEL, "A").
+
 % ----------------
 % Output functions
 % ----------------
@@ -123,9 +128,9 @@ eval_conformance_level(SuccessCriterionList, LevelOfConformance) ->
 %% decoration, is used only for visual formatting, or is not presented to users,
 %% then it is implemented in a way that it can be ignored by assistive
 %% technology.
-success_criterion_1_1_1_non_text_content(LevelOfConformance, _TechnologyList, Content, EntryType) ->
+success_criterion_1_1_1_non_text_content(LevelOfConformance, [?HTML_TECH] = _TechnologyList, Content, EntryType) ->
     eval([
-          {"HTML", fun html_wcag2:success_criterion_1_1_1_non_text_content/3, [LevelOfConformance, Content, EntryType]}
+          {?HTML_LABEL, fun html_wcag2:success_criterion_1_1_1_non_text_content/3, [LevelOfConformance, Content, EntryType]}
          ],
          "1.1.1").
 
@@ -142,9 +147,9 @@ success_criterion_1_1_1_non_text_content(LevelOfConformance, _TechnologyList, Co
 %%     * Prerecorded Video-only: Either an alternative for time-based media or
 %% an audio track is provided that presents equivalent information for
 %% prerecorded video-only content.
-success_criterion_1_2_1_time_based_media(LevelOfConformance, [html] = _TechnologyList, Content, EntryType) ->
+success_criterion_1_2_1_time_based_media(LevelOfConformance, [?HTML_TECH] = _TechnologyList, Content, EntryType) ->
     eval([
-          {"HTML", fun html_wcag2:success_criterion_1_2_1_time_based_media/3, [LevelOfConformance, Content, EntryType]}
+          {?HTML_LABEL, fun html_wcag2:success_criterion_1_2_1_time_based_media/3, [LevelOfConformance, Content, EntryType]}
          ],
          "1.2.1").
 
@@ -152,9 +157,9 @@ success_criterion_1_2_1_time_based_media(LevelOfConformance, [html] = _Technolog
 %% Success Criterion 1.2.2 Captions (Prerecorded): Captions are provided for all
 %% prerecorded audio content in synchronized media, except when the media is a
 %% media alternative for text and is clearly labeled as such.
-success_criterion_1_2_2_captions(LevelOfConformance, [html] = _TechnologyList, Content, EntryType) ->
+success_criterion_1_2_2_captions(LevelOfConformance, [?HTML_TECH] = _TechnologyList, Content, EntryType) ->
     eval([
-          {"HTML", fun html_wcag2:success_criterion_1_2_2_captions/3, [LevelOfConformance, Content, EntryType]}
+          {?HTML_LABEL, fun html_wcag2:success_criterion_1_2_2_captions/3, [LevelOfConformance, Content, EntryType]}
          ],
          "1.2.2").
 
@@ -163,9 +168,9 @@ success_criterion_1_2_2_captions(LevelOfConformance, [html] = _TechnologyList, C
 %% An alternative for time-based media or audio description of the prerecorded
 %% video content is provided for synchronized media, except when the media is
 %% a media alternative for text and is clearly labeled as such.
-success_criterion_1_2_3_audio_desc_or_media_alternative(LevelOfConformance, [html] = _TechnologyList, Content, EntryType) ->
+success_criterion_1_2_3_audio_desc_or_media_alternative(LevelOfConformance, [?HTML_TECH] = _TechnologyList, Content, EntryType) ->
     eval([
-          {"HTML", fun html_wcag2:success_criterion_1_2_3_audio_desc_or_media_alternative/3, [LevelOfConformance, Content, EntryType]}
+          {?HTML_LABEL, fun html_wcag2:success_criterion_1_2_3_audio_desc_or_media_alternative/3, [LevelOfConformance, Content, EntryType]}
          ],
          "1.2.3").
 
@@ -177,9 +182,9 @@ success_criterion_1_2_3_audio_desc_or_media_alternative(LevelOfConformance, [htm
 %% Success Criterion 1.3.1 Info and Relationships: Information, structure, and
 %% relationships conveyed through presentation can be programmatically
 %% determined or are available in text.
-success_criterion_1_3_1_info_and_relationships(LevelOfConformance, [html] = _TechnologyList, Content, EntryType) ->
+success_criterion_1_3_1_info_and_relationships(LevelOfConformance, [?HTML_TECH] = _TechnologyList, Content, EntryType) ->
     eval([
-          {"HTML", fun html_wcag2:success_criterion_1_3_1_info_and_relationships/3, [LevelOfConformance, Content, EntryType]}
+          {?HTML_LABEL, fun html_wcag2:success_criterion_1_3_1_info_and_relationships/3, [LevelOfConformance, Content, EntryType]}
          ],
          "1.3.1").
 
@@ -187,9 +192,9 @@ success_criterion_1_3_1_info_and_relationships(LevelOfConformance, [html] = _Tec
 %% Success Criterion 1.3.2 Meaningful Sequence: When the sequence in which
 %% content is presented affects its meaning, a correct reading sequence can be
 %% programmatically determined.
-success_criterion_1_3_2_meaningful_sequence(LevelOfConformance, [html] = _TechnologyList, Content, EntryType) ->
+success_criterion_1_3_2_meaningful_sequence(LevelOfConformance, [?HTML_TECH] = _TechnologyList, Content, EntryType) ->
     eval([
-          {"HTML", fun html_wcag2:success_criterion_1_3_2_meaningful_sequence/3, [LevelOfConformance, Content, EntryType]}
+          {?HTML_LABEL, fun html_wcag2:success_criterion_1_3_2_meaningful_sequence/3, [LevelOfConformance, Content, EntryType]}
          ],
          "1.3.2").
 
@@ -199,9 +204,9 @@ success_criterion_1_3_2_meaningful_sequence(LevelOfConformance, [html] = _Techno
 %% characteristics of components such as shape, size, visual location,
 %% orientation, or sound.
 %% - Note: For requirements related to color, refer to Guideline 1.4.
-success_criterion_1_3_3_audio_sensory_characteristics(LevelOfConformance, [html] = _TechnologyList, Content, EntryType) ->
+success_criterion_1_3_3_audio_sensory_characteristics(LevelOfConformance, [?HTML_TECH] = _TechnologyList, Content, EntryType) ->
     eval([
-          {"HTML", fun html_wcag2:success_criterion_1_3_3_audio_sensory_characteristics/3, [LevelOfConformance, Content, EntryType]}
+          {?HTML_LABEL, fun html_wcag2:success_criterion_1_3_3_audio_sensory_characteristics/3, [LevelOfConformance, Content, EntryType]}
          ],
          "1.3.3").
 
@@ -216,9 +221,9 @@ success_criterion_1_3_3_audio_sensory_characteristics(LevelOfConformance, [html]
 %% - Note: This success criterion addresses color perception specifically.
 %% Other forms of perception are covered in Guideline 1.3 including
 %% programmatic access to color and other visual presentation coding.
-success_criterion_1_4_1_use_of_color(LevelOfConformance, [html] = _TechnologyList, Content, EntryType) ->
+success_criterion_1_4_1_use_of_color(LevelOfConformance, [?HTML_TECH] = _TechnologyList, Content, EntryType) ->
     eval([
-          {"HTML", fun html_wcag2:success_criterion_1_4_1_use_of_color/3, [LevelOfConformance, Content, EntryType]}
+          {?HTML_LABEL, fun html_wcag2:success_criterion_1_4_1_use_of_color/3, [LevelOfConformance, Content, EntryType]}
          ],
          "1.4.1").
 
@@ -231,9 +236,9 @@ success_criterion_1_4_1_use_of_color(LevelOfConformance, [html] = _TechnologyLis
 %% interfere with a user's ability to use the whole page, all content on the
 %% Web page (whether or not it is used to meet other success criteria) must
 %% meet this success criterion. See Conformance Requirement 5: Non-Interference.
-success_criterion_1_4_2_audio_control(LevelOfConformance, [html] = _TechnologyList, Content, EntryType) ->
+success_criterion_1_4_2_audio_control(LevelOfConformance, [?HTML_TECH] = _TechnologyList, Content, EntryType) ->
     eval([
-          {"HTML", fun html_wcag2:success_criterion_1_4_2_audio_control/3, [LevelOfConformance, Content, EntryType]}
+          {?HTML_LABEL, fun html_wcag2:success_criterion_1_4_2_audio_control/3, [LevelOfConformance, Content, EntryType]}
          ],
          "1.4.2").
 
@@ -258,9 +263,9 @@ success_criterion_1_4_2_audio_control(LevelOfConformance, [html] = _TechnologyLi
 %% function (text input) does not.
 %% - Note 2: This does not forbid and should not discourage providing mouse
 %% input or other input methods in addition to keyboard operation.
-success_criterion_2_1_1_keyboard(LevelOfConformance, [html] = _TechnologyList, Content, EntryType) ->
+success_criterion_2_1_1_keyboard(LevelOfConformance, [?HTML_TECH] = _TechnologyList, Content, EntryType) ->
     eval([
-          {"HTML", fun html_wcag2:success_criterion_2_1_1_keyboard/3, [LevelOfConformance, Content, EntryType]}
+          {?HTML_LABEL, fun html_wcag2:success_criterion_2_1_1_keyboard/3, [LevelOfConformance, Content, EntryType]}
          ],
          "2.1.1").
 
@@ -274,9 +279,9 @@ success_criterion_2_1_1_keyboard(LevelOfConformance, [html] = _TechnologyList, C
 %% interfere with a user's ability to use the whole page, all content on the
 %% Web page (whether it is used to meet other success criteria or not) must meet
 %% this success criterion. See Conformance Requirement 5: Non-Interference.
-success_criterion_2_1_2_no_keyboard_trap(LevelOfConformance, [html] = _TechnologyList, Content, EntryType) ->
+success_criterion_2_1_2_no_keyboard_trap(LevelOfConformance, [?HTML_TECH] = _TechnologyList, Content, EntryType) ->
     eval([
-          {"HTML", fun html_wcag2:success_criterion_2_1_2_no_keyboard_trap/3, [LevelOfConformance, Content, EntryType]}
+          {?HTML_LABEL, fun html_wcag2:success_criterion_2_1_2_no_keyboard_trap/3, [LevelOfConformance, Content, EntryType]}
          ],
          "2.1.2").
 
@@ -306,9 +311,9 @@ success_criterion_2_1_2_no_keyboard_trap(LevelOfConformance, [html] = _Technolog
 %% limit. This success criterion should be considered in conjunction with
 %% Success Criterion 3.2.1, which puts limits on changes of content or context
 %% as a result of user action.
-success_criterion_2_2_1_timing_adjustable(LevelOfConformance, [html] = _TechnologyList, Content, EntryType) ->
+success_criterion_2_2_1_timing_adjustable(LevelOfConformance, [?HTML_TECH] = _TechnologyList, Content, EntryType) ->
     eval([
-          {"HTML", fun html_wcag2:success_criterion_2_2_1_timing_adjustable/3, [LevelOfConformance, Content, EntryType]}
+          {?HTML_LABEL, fun html_wcag2:success_criterion_2_2_1_timing_adjustable/3, [LevelOfConformance, Content, EntryType]}
          ],
          "2.2.1").
 
@@ -340,9 +345,9 @@ success_criterion_2_2_1_timing_adjustable(LevelOfConformance, [html] = _Technolo
 %% situation can be considered essential if interaction cannot occur during that
 %% phase for all users and if not indicating progress could confuse users or
 %% cause them to think that content was frozen or broken.
-success_criterion_2_2_2_pause_stop_hide(LevelOfConformance, [html] = _TechnologyList, Content, EntryType) ->
+success_criterion_2_2_2_pause_stop_hide(LevelOfConformance, [?HTML_TECH] = _TechnologyList, Content, EntryType) ->
     eval([
-          {"HTML", fun html_wcag2:success_criterion_2_2_2_pause_stop_hide/3, [LevelOfConformance, Content, EntryType]}
+          {?HTML_LABEL, fun html_wcag2:success_criterion_2_2_2_pause_stop_hide/3, [LevelOfConformance, Content, EntryType]}
          ],
          "2.2.2").
 
@@ -359,9 +364,9 @@ success_criterion_2_2_2_pause_stop_hide(LevelOfConformance, [html] = _Technology
 %% Web page (whether it is used to meet other success criteria or not) must
 %% meet this success criterion. See Conformance Requirement 5:
 %% Non-Interference.
-success_criterion_2_3_1_three_flashes_or_below_threshold(LevelOfConformance, [html] = _TechnologyList, Content, EntryType) ->
+success_criterion_2_3_1_three_flashes_or_below_threshold(LevelOfConformance, [?HTML_TECH] = _TechnologyList, Content, EntryType) ->
     eval([
-          {"HTML", fun html_wcag2:success_criterion_2_3_1_three_flashes_or_below_threshold/3, [LevelOfConformance, Content, EntryType]}
+          {?HTML_LABEL, fun html_wcag2:success_criterion_2_3_1_three_flashes_or_below_threshold/3, [LevelOfConformance, Content, EntryType]}
          ],
          "2.3.1").
 
@@ -372,18 +377,18 @@ success_criterion_2_3_1_three_flashes_or_below_threshold(LevelOfConformance, [ht
 
 %% Success Criterion 2.4.1 Bypass Blocks: A mechanism is available to bypass
 %% blocks of content that are repeated on multiple Web pages.
-success_criterion_2_4_1_bypass_blocks(LevelOfConformance, [html] = _TechnologyList, Content, EntryType) ->
+success_criterion_2_4_1_bypass_blocks(LevelOfConformance, [?HTML_TECH] = _TechnologyList, Content, EntryType) ->
     eval([
-          {"HTML", fun html_wcag2:success_criterion_2_4_1_bypass_blocks/3, [LevelOfConformance, Content, EntryType]}
+          {?HTML_LABEL, fun html_wcag2:success_criterion_2_4_1_bypass_blocks/3, [LevelOfConformance, Content, EntryType]}
          ],
          "2.4.1").
 
 
 %% Success Criterion 2.4.2 Page Titled: Web pages have titles that describe
 %% topic or purpose.
-success_criterion_2_4_2_page_titled(LevelOfConformance, [html] = _TechnologyList, Content, EntryType) ->
+success_criterion_2_4_2_page_titled(LevelOfConformance, [?HTML_TECH] = _TechnologyList, Content, EntryType) ->
     eval([
-          {"HTML", fun html_wcag2:success_criterion_2_4_2_page_titled/3, [LevelOfConformance, Content, EntryType]}
+          {?HTML_LABEL, fun html_wcag2:success_criterion_2_4_2_page_titled/3, [LevelOfConformance, Content, EntryType]}
          ],
          "2.4.2").
 
@@ -392,9 +397,9 @@ success_criterion_2_4_2_page_titled(LevelOfConformance, [html] = _TechnologyList
 %% sequentially and the navigation sequences affect meaning or operation,
 %% focusable components receive focus in an order that preserves meaning and
 %% operability.
-success_criterion_2_4_3_focus_order(LevelOfConformance, [html] = _TechnologyList, Content, EntryType) ->
+success_criterion_2_4_3_focus_order(LevelOfConformance, [?HTML_TECH] = _TechnologyList, Content, EntryType) ->
     eval([
-          {"HTML", fun html_wcag2:success_criterion_2_4_3_focus_order/3, [LevelOfConformance, Content, EntryType]}
+          {?HTML_LABEL, fun html_wcag2:success_criterion_2_4_3_focus_order/3, [LevelOfConformance, Content, EntryType]}
          ],
          "2.4.3").
 
@@ -403,9 +408,9 @@ success_criterion_2_4_3_focus_order(LevelOfConformance, [html] = _TechnologyList
 %% can be determined from the link text alone or from the link text together
 %% with its programmatically determined link context, except where the purpose
 %% of the link would be ambiguous to users in general.
-success_criterion_2_4_4_link_purpose(LevelOfConformance, [html] = _TechnologyList, Content, EntryType) ->
+success_criterion_2_4_4_link_purpose(LevelOfConformance, [?HTML_TECH] = _TechnologyList, Content, EntryType) ->
     eval([
-          {"HTML", fun html_wcag2:success_criterion_2_4_4_link_purpose/3, [LevelOfConformance, Content, EntryType]}
+          {?HTML_LABEL, fun html_wcag2:success_criterion_2_4_4_link_purpose/3, [LevelOfConformance, Content, EntryType]}
          ],
          "2.4.4").
 
@@ -420,9 +425,9 @@ success_criterion_2_4_4_link_purpose(LevelOfConformance, [html] = _TechnologyLis
 
 %% Success Criterion 3.1.1 Language of Page: The default human language of each
 %% Web page can be programmatically determined.
-success_criterion_3_1_1_language_of_page(LevelOfConformance, [html] = _TechnologyList, Content, EntryType) ->
+success_criterion_3_1_1_language_of_page(LevelOfConformance, [?HTML_TECH] = _TechnologyList, Content, EntryType) ->
     eval([
-          {"HTML", fun html_wcag2:success_criterion_3_1_1_language_of_page/3, [LevelOfConformance, Content, EntryType]}
+          {?HTML_LABEL, fun html_wcag2:success_criterion_3_1_1_language_of_page/3, [LevelOfConformance, Content, EntryType]}
          ],
          "3.1.1").
 
@@ -433,9 +438,9 @@ success_criterion_3_1_1_language_of_page(LevelOfConformance, [html] = _Technolog
 
 %% Success Criterion 3.2.1 On Focus: When any component receives focus, it does
 %% not initiate a change of context.
-success_criterion_3_2_1_on_focus(LevelOfConformance, [html] = _TechnologyList, Content, EntryType) ->
+success_criterion_3_2_1_on_focus(LevelOfConformance, [?HTML_TECH] = _TechnologyList, Content, EntryType) ->
     eval([
-          {"HTML", fun html_wcag2:success_criterion_3_2_1_on_focus/3, [LevelOfConformance, Content, EntryType]}
+          {?HTML_LABEL, fun html_wcag2:success_criterion_3_2_1_on_focus/3, [LevelOfConformance, Content, EntryType]}
          ],
          "3.2.1").
 
@@ -443,9 +448,9 @@ success_criterion_3_2_1_on_focus(LevelOfConformance, [html] = _TechnologyList, C
 %% Success Criterion 3.2.2 On Input: Changing the setting of any user interface
 %% component does not automatically cause a change of context unless the user
 %% has been advised of the behavior before using the component.
-success_criterion_3_2_2_on_input(LevelOfConformance, [html] = _TechnologyList, Content, EntryType) ->
+success_criterion_3_2_2_on_input(LevelOfConformance, [?HTML_TECH] = _TechnologyList, Content, EntryType) ->
     eval([
-          {"HTML", fun html_wcag2:success_criterion_3_2_2_on_input/3, [LevelOfConformance, Content, EntryType]}
+          {?HTML_LABEL, fun html_wcag2:success_criterion_3_2_2_on_input/3, [LevelOfConformance, Content, EntryType]}
          ],
          "3.2.2").
 
@@ -456,18 +461,18 @@ success_criterion_3_2_2_on_input(LevelOfConformance, [html] = _TechnologyList, C
 %% Success Criterion 3.3.1 Error Identification: If an input error is
 %% automatically detected, the item that is in error is identified and the
 %% error is described to the user in text.
-success_criterion_3_3_1_error_identification(LevelOfConformance, [html] = _TechnologyList, Content, EntryType) ->
+success_criterion_3_3_1_error_identification(LevelOfConformance, [?HTML_TECH] = _TechnologyList, Content, EntryType) ->
     eval([
-          {"HTML", fun html_wcag2:success_criterion_3_3_1_error_identification/3, [LevelOfConformance, Content, EntryType]}
+          {?HTML_LABEL, fun html_wcag2:success_criterion_3_3_1_error_identification/3, [LevelOfConformance, Content, EntryType]}
          ],
          "3.3.1").
 
 
 %% Success Criterion 3.3.2 Labels or Instructions: Labels or instructions are
 %% provided when content requires user input.
-success_criterion_3_3_2_labels_or_instructions(LevelOfConformance, [html] = _TechnologyList, Content, EntryType) ->
+success_criterion_3_3_2_labels_or_instructions(LevelOfConformance, [?HTML_TECH] = _TechnologyList, Content, EntryType) ->
     eval([
-          {"HTML", fun html_wcag2:success_criterion_3_3_2_labels_or_instructions/3, [LevelOfConformance, Content, EntryType]}
+          {?HTML_LABEL, fun html_wcag2:success_criterion_3_3_2_labels_or_instructions/3, [LevelOfConformance, Content, EntryType]}
          ],
          "3.3.2").
 
@@ -490,9 +495,9 @@ success_criterion_3_3_2_labels_or_instructions(LevelOfConformance, [html] = _Tec
 %% - Note: Start and end tags that are missing a critical character in their
 %% formation, such as a closing angle bracket or a mismatched attribute value
 %% quotation mark are not complete.
-success_criterion_4_1_1_parsing(LevelOfConformance, [html] = _TechnologyList, Content, EntryType) ->
+success_criterion_4_1_1_parsing(LevelOfConformance, [?HTML_TECH] = _TechnologyList, Content, EntryType) ->
     eval([
-          {"HTML", fun html_wcag2:success_criterion_4_1_1_parsing/3, [LevelOfConformance, Content, EntryType]}
+          {?HTML_LABEL, fun html_wcag2:success_criterion_4_1_1_parsing/3, [LevelOfConformance, Content, EntryType]}
          ],
          "4.1.1").
 
@@ -507,16 +512,16 @@ success_criterion_4_1_1_parsing(LevelOfConformance, [html] = _TechnologyList, Co
 %% script their own user interface components. For example, standard HTML
 %% controls already meet this success criterion when used according to
 %% specification.
-success_criterion_4_1_2_name_role_value(LevelOfConformance, [html] = _TechnologyList, Content, EntryType) ->
+success_criterion_4_1_2_name_role_value(LevelOfConformance, [?HTML_TECH] = _TechnologyList, Content, EntryType) ->
     eval([
-          {"HTML", fun html_wcag2:success_criterion_4_1_2_name_role_value/3, [LevelOfConformance, Content, EntryType]}
+          {?HTML_LABEL, fun html_wcag2:success_criterion_4_1_2_name_role_value/3, [LevelOfConformance, Content, EntryType]}
          ],
          "4.1.2").
 
 
 %% Check the Success Criterions related to the Level A of Conformance.
-conformance_level(a = LevelOfConformance, TechnologyList, Content, EntryType) ->
-    Args = [LevelOfConformance, TechnologyList, Content, EntryType],
+conformance_level(?ClevelA = _LevelOfConformance, TechnologyList, Content, EntryType) ->
+    Args = [?ClevelA, TechnologyList, Content, EntryType],
     eval_conformance_level([
                             {fun success_criterion_1_1_1_non_text_content/4,                 Args},
                             {fun success_criterion_1_2_1_time_based_media/4,                 Args},
@@ -544,4 +549,4 @@ conformance_level(a = LevelOfConformance, TechnologyList, Content, EntryType) ->
                             {fun success_criterion_4_1_1_parsing/4,                          Args},
                             {fun success_criterion_4_1_2_name_role_value/4,                  Args}
                            ],
-                           "A").
+                           ?ClevelA_LABEL).
