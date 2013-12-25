@@ -515,7 +515,7 @@ success_criterion_4_1_2_name_role_value(LevelOfConformance, _TechnologyList, Con
 
 
 %% Check the Success Criterions related to the Level A of Conformance.
-conformance_level(LevelOfConformance, TechnologyList, Content, EntryType) ->
+conformance_level(a = LevelOfConformance, TechnologyList, Content, EntryType) ->
     Args = [LevelOfConformance, TechnologyList, Content, EntryType],
     eval_conformance_level([
                             {fun success_criterion_1_1_1_non_text_content/4,                 Args},
