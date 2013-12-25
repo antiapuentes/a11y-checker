@@ -185,7 +185,7 @@ close_doc() ->
 
 
 html_declaration() ->
-    "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"../src/html/data/DTD/xhtml1-transitional.dtd\">".
+    "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"src/html/data/DTD/xhtml1-transitional.dtd\">".
 
 html() ->
     ?LET({DocumentOpenTag, Head, Body, DocumentCloseTag},

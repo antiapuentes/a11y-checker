@@ -162,7 +162,7 @@ The image doesn't contain a textual alternative.
 
 ### *Property-based tests*
 
-There are two modules related to the *Property-based tests*.
+There are two modules related to the *property-based tests*.
 To try them you have to get PropEr installed.
 
 #### html_gen
