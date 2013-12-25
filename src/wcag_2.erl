@@ -52,10 +52,7 @@
          conformance_level/4
         ]).
 
--define(HTML_TECH, html).
--define(HTML_LABEL, "HTML").
--define(ClevelA, a).
--define(ClevelA_LABEL, "A").
+-include("../include/a11y-checker.hrl").
 
 % ----------------
 % Output functions
