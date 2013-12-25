@@ -51,15 +51,13 @@
          success_criterion_4_1_1_parsing/3,
          success_criterion_4_1_2_name_role_value/3]).
 
+-include("../../include/a11y-checker.hrl").
 
 % ----------------
 % Eval functions
 % ----------------
 eval_tech(TechFun, TechArgs, TechName) ->
-    Result = case TechArgs of
-                 [Arg]        -> TechFun(Arg);
-                 [Arg1, Arg2] -> TechFun(Arg1, Arg2)
-             end,
+    Result = erlang:apply(TechFun, TechArgs),
     case Result of
         true  -> io:format("HTML ~s: ok~n", [TechName]);
         false -> io:format("HTML ~s: failed~n~n", [TechName])
