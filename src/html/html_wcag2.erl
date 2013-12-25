@@ -104,7 +104,7 @@ eval(TechList) ->
 %% decoration, is used only for visual formatting, or is not presented to users,
 %% then it is implemented in a way that it can be ignored by assistive
 %% technology.
-success_criterion_1_1_1_non_text_content(_LevelOfConformance, Html, EntryType) ->
+success_criterion_1_1_1_non_text_content(?ClevelA = _LevelOfConformance, Html, EntryType) ->
     ScannedHtml = html_tech:scan(Html, EntryType),
     eval([
           {fun html_tech:h44_only_labeled_form_controls/1,           [ScannedHtml], "H44"},
@@ -143,7 +143,7 @@ success_criterion_1_2_2_captions(_, _, _) ->
 %% An alternative for time-based media or audio description of the prerecorded
 %% video content is provided for synchronized media, except when the media is
 %% a media alternative for text and is clearly labeled as such.
-success_criterion_1_2_3_audio_desc_or_media_alternative(_LevelOfConformance, Html, EntryType) ->
+success_criterion_1_2_3_audio_desc_or_media_alternative(?ClevelA = _LevelOfConformance, Html, EntryType) ->
     ScannedHtml = html_tech:scan(Html, EntryType),
     eval([
           {fun html_tech:h53_only_descriptive_objects/1, [ScannedHtml], "H53"}
@@ -157,7 +157,7 @@ success_criterion_1_2_3_audio_desc_or_media_alternative(_LevelOfConformance, Htm
 %% Success Criterion 1.3.1 Info and Relationships: Information, structure, and
 %% relationships conveyed through presentation can be programmatically
 %% determined or are available in text.
-success_criterion_1_3_1_info_and_relationships(_LevelOfConformance, Html, EntryType) ->
+success_criterion_1_3_1_info_and_relationships(?ClevelA = _LevelOfConformance, Html, EntryType) ->
     ScannedHtml = html_tech:scan(Html, EntryType),
     eval([
           {fun html_tech:h44_only_labeled_form_controls/1,           [ScannedHtml], "H44"},
@@ -325,7 +325,7 @@ success_criterion_2_3_1_three_flashes_or_below_threshold(_, _, _) ->
 
 %% Success Criterion 2.4.1 Bypass Blocks: A mechanism is available to bypass
 %% blocks of content that are repeated on multiple Web pages.
-success_criterion_2_4_1_bypass_blocks(_LevelOfConformance, Html, EntryType) ->
+success_criterion_2_4_1_bypass_blocks(?ClevelA = _LevelOfConformance, Html, EntryType) ->
     ScannedHtml = html_tech:scan(Html, EntryType),
     eval([
           {fun html_tech:h64_only_titled_frames_and_iframes/1, [ScannedHtml], "H64"}
@@ -334,7 +334,7 @@ success_criterion_2_4_1_bypass_blocks(_LevelOfConformance, Html, EntryType) ->
 
 %% Success Criterion 2.4.2 Page Titled: Web pages have titles that describe
 %% topic or purpose.
-success_criterion_2_4_2_page_titled(_LevelOfConformance, Html, EntryType) ->
+success_criterion_2_4_2_page_titled(?ClevelA = _LevelOfConformance, Html, EntryType) ->
     ScannedHtml = html_tech:scan(Html, EntryType),
     eval([
           {fun html_tech:h25_page_is_titled/1, [ScannedHtml], "H25"}
@@ -353,7 +353,7 @@ success_criterion_2_4_3_focus_order(_, _, _) ->
 %% can be determined from the link text alone or from the link text together
 %% with its programmatically determined link context, except where the purpose
 %% of the link would be ambiguous to users in general.
-success_criterion_2_4_4_link_purpose(_LevelOfConformance, Html, EntryType) ->
+success_criterion_2_4_4_link_purpose(?ClevelA = _LevelOfConformance, Html, EntryType) ->
     ScannedHtml = html_tech:scan(Html, EntryType),
     eval([
           {fun html_tech:h30_only_descriptive_links/1, [ScannedHtml], "H30"}
@@ -370,7 +370,7 @@ success_criterion_2_4_4_link_purpose(_LevelOfConformance, Html, EntryType) ->
 
 %% Success Criterion 3.1.1 Language of Page: The default human language of each
 %% Web page can be programmatically determined.
-success_criterion_3_1_1_language_of_page(_LevelOfConformance, Html, EntryType) ->
+success_criterion_3_1_1_language_of_page(?ClevelA = _LevelOfConformance, Html, EntryType) ->
     ScannedHtml = html_tech:scan(Html, EntryType),
     eval([
           {fun html_tech:h57_language_is_declared/1, [ScannedHtml], "H57"}
@@ -390,7 +390,7 @@ success_criterion_3_2_1_on_focus(_, _, _) ->
 %% Success Criterion 3.2.2 On Input: Changing the setting of any user interface
 %% component does not automatically cause a change of context unless the user
 %% has been advised of the behavior before using the component.
-success_criterion_3_2_2_on_input(_LevelOfConformance, Html, EntryType) ->
+success_criterion_3_2_2_on_input(?ClevelA = _LevelOfConformance, Html, EntryType) ->
     ScannedHtml = html_tech:scan(Html, EntryType),
     eval([
           {fun html_tech:h32_only_submit_able_forms/1, [ScannedHtml], "H32"}
@@ -408,7 +408,7 @@ success_criterion_3_3_1_error_identification(_, _, _) ->
 
 %% Success Criterion 3.3.2 Labels or Instructions: Labels or instructions are
 %% provided when content requires user input.
-success_criterion_3_3_2_labels_or_instructions(_LevelOfConformance, Html, EntryType) ->
+success_criterion_3_3_2_labels_or_instructions(?ClevelA = _LevelOfConformance, Html, EntryType) ->
     ScannedHtml = html_tech:scan(Html, EntryType),
     eval([
           {fun html_tech:h44_only_labeled_form_controls/1, [ScannedHtml], "H44"},
@@ -435,7 +435,7 @@ success_criterion_3_3_2_labels_or_instructions(_LevelOfConformance, Html, EntryT
 %% - Note: Start and end tags that are missing a critical character in their
 %% formation, such as a closing angle bracket or a mismatched attribute value
 %% quotation mark are not complete.
-success_criterion_4_1_1_parsing(_LevelOfConformance, Html, EntryType) ->
+success_criterion_4_1_1_parsing(?ClevelA = _LevelOfConformance, Html, EntryType) ->
     eval([
           {fun html_tech:h74_only_well_formed_tags/2,    [Html, EntryType], "H74"},
           {fun html_tech:h94_no_duplicated_attributes/2, [Html, EntryType], "H94"},
@@ -455,7 +455,7 @@ success_criterion_4_1_1_parsing(_LevelOfConformance, Html, EntryType) ->
 %% script their own user interface components. For example, standard HTML
 %% controls already meet this success criterion when used according to
 %% specification.
-success_criterion_4_1_2_name_role_value(_LevelOfConformance, Html, EntryType) ->
+success_criterion_4_1_2_name_role_value(?ClevelA = _LevelOfConformance, Html, EntryType) ->
     ScannedHtml = html_tech:scan(Html, EntryType),
     eval([
           {fun html_tech:h65_only_labeled_or_titled_form_controls/1, [ScannedHtml],     "H65"},
