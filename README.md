@@ -171,9 +171,14 @@ Automatic and random HTML generator.
 
 ##### Example
 
-Generate random HTML:
+Generate random (ocassionally valid and A-conformance level compliant) HTML string:
 
     proper_gen:pick(html_gen:html()).
+
+You can save the result permanently as a file:
+
+    {ok, F} = proper_gen:pick(html_gen:html()).
+    file:write_file("file.html", io_lib:fwrite("~p", [F])).
 
 More information about [*proper_gen:pick*](http://proper.softlab.ntua.gr/doc/proper_gen.html#pick-1) and [proper_gen](http://proper.softlab.ntua.gr/doc/proper_gen.html).
 
