@@ -204,7 +204,9 @@ Known issues
 
 * *a11y-checker* currently supports HTML, if your page contains javascript code, parsing errors can happen when parsing the document using *xmerl_scan*.
 
-* Sometimes we have detected problems when parsing content of certain HTML attributes if it contains special characters.
+* Sometimes we have detected problems when parsing content of certain HTML attributes if they contain special characters.
 
 * The DTD's address specified in the HTML DOCTYPE declaration must be a local file, *xmerl_scan* doesn't have support to retrieve it from the web.
-You can use: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "../src/html/data/DTD/xhtml1-transitional.dtd">`
+You can use: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "src/html/data/DTD/xhtml1-transitional.dtd">`
+
+* *a11y-checker* scans the HTML input up to 10 times when checking complete A conformance level. This should be optimised.
