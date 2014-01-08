@@ -28,24 +28,15 @@ Requirements
 Installation
 ------------
 
-*a11y-checker* comes with an EMakefile you can use to compile the modules that compose the library by typing inside an Erlang console:
+*a11y-checker* comes with an EMakefile you can use to compile and load the modules that compose the library by typing
 
-    cd("path to the project").
-    make:all().
+    erl -pa ebin
 
-To load the modules that compose *a11y-checker*, type inside the Erlang console:
+to open an Erlang shell and then
 
-    cd(ebin).
-    l(wcag_2).
-    l(html_wcag2).
-    l(html_techniques).
+    make:all([load]).
 
-If you are interested in trying the *Property-based tests*, also load:
-
-    l(html_prop).
-    l(html_gen).
-
-and the PropEr modules:
+If you are interested in trying the *property-based tests*, remember to load or include in your Erlang classpath the PropEr modules:
 
     l(proper).
     l(proper_gen).
@@ -116,6 +107,18 @@ Explanation:
 * *Success criterion 3.1.1. fails because the language attribute is not set in the *html* element [(H57)](http://www.w3.org/TR/WCAG-TECHS/H57.html).
 * *Success criteria 4.1.1. and 4.1.2* fail because HTML is not used according to its specs, the DTD declaration is missing. [(H88)](http://www.w3.org/TR/WCAG-TECHS/H88.html).
 
+
+You can also provide a local file as argument:
+
+    wcag_2:conformance_level(a, [html], "file.html", file).
+
+Finally, you can provide a URL as argument, but in that case make sure to start inets (and ssl) if needed:
+
+    inets:start().
+    ssl:start().
+    wcag_2:conformance_level(a, [html], "http://www.w3c.org", url).
+
+
 ### html_wcag2
 
 Tests if a certain success criterion is met by the HTML of the page, for a certain level of conformance.
@@ -159,7 +162,7 @@ The image doesn't contain a textual alternative.
 
 ### *Property-based tests*
 
-There are two modules related to the *Property-based tests*.
+There are two modules related to the *property-based tests*.
 To try them you have to get PropEr installed.
 
 #### html_gen
@@ -168,9 +171,14 @@ Automatic and random HTML generator.
 
 ##### Example
 
-Generate random HTML:
+Generate random (ocassionally valid and A-conformance level compliant) HTML string:
 
     proper_gen:pick(html_gen:html()).
+
+You can save the result permanently as a file:
+
+    {ok, F} = proper_gen:pick(html_gen:html()).
+    file:write_file("file.html", io_lib:fwrite("~p", [F])).
 
 More information about [*proper_gen:pick*](http://proper.softlab.ntua.gr/doc/proper_gen.html#pick-1) and [proper_gen](http://proper.softlab.ntua.gr/doc/proper_gen.html).
 
@@ -196,7 +204,9 @@ Known issues
 
 * *a11y-checker* currently supports HTML, if your page contains javascript code, parsing errors can happen when parsing the document using *xmerl_scan*.
 
-* Sometimes we have detected problems when parsing content of certain HTML attributes if it contains special characters.
+* Sometimes we have detected problems when parsing content of certain HTML attributes if they contain special characters.
 
 * The DTD's address specified in the HTML DOCTYPE declaration must be a local file, *xmerl_scan* doesn't have support to retrieve it from the web.
-You can use: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "../src/html/data/DTD/xhtml1-transitional.dtd">`
+You can use: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "src/html/data/DTD/xhtml1-transitional.dtd">`
+
+* *a11y-checker* scans the HTML input up to 10 times when checking complete A conformance level. This should be optimised.

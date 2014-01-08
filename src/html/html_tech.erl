@@ -80,14 +80,18 @@
 scan(Html, EntryType) ->
     {XmlElement, _} = case EntryType of
                           string -> xmerl_scan:string(Html,[{comments, false}]);
-                          file   -> xmerl_scan:file(Html, [{comments, false}])
+                          file   -> xmerl_scan:file(Html, [{comments, false}]);
+						  url    -> {_, { _, _, HtmlData}} = httpc:request(Html),
+									xmerl_scan:string(HtmlData,[{comments, false}])
                       end,
     XmlElement.
 
 validate(Html, EntryType) ->
     {XmlElement, _} =  case EntryType of
                            string -> xmerl_scan:string(Html, [{validation, dtd}, {comments, false}]);
-                           file   -> xmerl_scan:file(Html, [{validation, dtd},{comments, false}])
+                           file   -> xmerl_scan:file(Html, [{validation, dtd},{comments, false}]);
+						   url    -> {_, { _, _, HtmlData}} = httpc:request(Html),
+									 xmerl_scan:string(HtmlData,[{validation, dtd}, {comments, false}])
                        end,
     XmlElement.
 
@@ -142,19 +146,13 @@ if_any(List, Fun) ->
                 [Fun(A) || A <- List ]).
 
 for_all(List, Fun) ->
-    lists:foldl(fun(A, B) -> A and B end,
-                true,
-                [Fun(A) || A <- List ]).
+	for_all(List, Fun, []).
 
-for_all(List, Fun, Arg1) ->
+for_all(List, Fun, Args) ->
       lists:foldl(fun(A, B) -> A and B end,
                 true,
-                [Fun(A, Arg1) || A <- List ]).
+                [erlang:apply(Fun, [A | Args]) || A <- List ]).
 
-for_all(List, Fun, Arg1, Arg2) ->
-      lists:foldl(fun(A, B) -> A and B end,
-                true,
-                [Fun(A, Arg1, Arg2) || A <- List ]).
 
 % ----------------
 % Output functions
@@ -173,20 +171,15 @@ print_error(Error) ->
 % ----------------
 % Eval functions
 % ----------------
+
 eval(XmlElement, Fun, Args) when is_record(XmlElement, xmlElement) ->
-    Result = case Args of
-                 []                 -> Fun();
-                 [Arg]              -> Fun(Arg);
-                 [Arg1, Arg2]       -> Fun(Arg1, Arg2);
-                 [Arg1, Arg2, Arg3] -> Fun(Arg1, Arg2, Arg3)
-             end,
+    Result = erlang:apply(Fun, Args),
     case Result of
         false -> print_element(XmlElement);
         _     -> ""
     end,
     Result;
-eval(_,_,_) ->false.
-
+eval(_,_,_) -> false.
 
 
 % ------------------------------------------
@@ -259,9 +252,11 @@ is_text(XmlText) when is_record(XmlText, xmlText) ->
 is_text(_) ->
     false.
 
+
 % --------------------------------------------
 % Helper functions for HTML attributes
 % --------------------------------------------
+
 is_lang(#xmlAttribute{name = lang}) ->
     true;
 is_lang(#xmlAttribute{name = 'xml:lang'}) ->
@@ -405,8 +400,7 @@ look_for_labels(XmlElement, ElementFilter, ParentContent) when is_record(XmlElem
                       [] -> true;
                       _  -> for_all(XmlElement#xmlElement.content,
                                     fun look_for_labels/3,
-                                    ElementFilter,
-                                    XmlElement#xmlElement.content)
+                                    [ElementFilter, XmlElement#xmlElement.content])
                   end
     end;
 look_for_labels(_, _ ,_) ->
@@ -463,6 +457,7 @@ needs_label_or_title(XmlElement) ->
 h65_only_labeled_or_titled_form_controls(XmlElement) ->
     look_for_labels(XmlElement, fun needs_label_or_title/1, XmlElement).
 
+
 % H64: Using the title attribute of the frame and iframe elements
 % ---------------------------------------------------------------
 h64_only_titled_frames_and_iframes(XmlElement = #xmlElement{name = frame}) ->
@@ -505,7 +500,7 @@ only_elements_with_descriptive_body(XmlElement = #xmlElement{name = ElementName,
 only_elements_with_descriptive_body(XmlElement = #xmlElement{name = ElementName}, ElementName) ->
     eval(XmlElement, fun is_descriptive_body/1, [XmlElement#xmlElement.content]);
 only_elements_with_descriptive_body(XmlElement, ElementName) when is_record(XmlElement, xmlElement) ->
-    for_all(XmlElement#xmlElement.content, fun only_elements_with_descriptive_body/2, ElementName);
+    for_all(XmlElement#xmlElement.content, fun only_elements_with_descriptive_body/2, [ElementName]);
 only_elements_with_descriptive_body(_, _) ->
     true.
 
@@ -528,7 +523,6 @@ contains(Content, IsElement) ->
         [H|_] -> eval(H, fun contains/2, [H, fun is_submit_element/1])
     end.
 
-
 is_submit_element(XmlElement) when is_record(XmlElement, xmlElement) ->
     is_input_submit(XmlElement) orelse is_input_image(XmlElement) orelse is_submit_button(XmlElement);
 is_submit_element(_) ->
@@ -542,6 +536,7 @@ h32_only_submit_able_forms(XmlElement) when is_record(XmlElement, xmlElement) ->
     for_all(XmlElement#xmlElement.content, fun h32_only_submit_able_forms/1);
 h32_only_submit_able_forms(_) ->
     true.
+
 
 % H67: Using null alt text and no title attribute on img elements for images that AT should ignore
 % ------------------------------------------------------------------------------------------------
