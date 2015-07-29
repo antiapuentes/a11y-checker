@@ -16,7 +16,7 @@ The library was designed in a way that eases the addition of new levels of confo
 
 During the development process, **Property-based testing** was used to verify the HTML techniques, making use of the [**PropEr**](http://proper.softlab.ntua.gr/) tool. An automated, random HTML generator was implemented as well during the testing phase.
 
-*a11y-checker*, its *Property-based tests* and its *automatic random HTML generator* are licensed under **GPLv3**.
+*a11y-checker*, its *Property-based tests* and its *automatic random HTML generator* are licensed under **[GPLv3](COPYING)**.
 
 Requirements
 ------------
